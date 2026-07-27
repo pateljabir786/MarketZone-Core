@@ -1,4 +1,4 @@
-exexport default function Home() {
+export default function Home() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#f8fafc', margin: 0 }}>
       {/* Header / Navigation Bar */}
