@@ -79,32 +79,45 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* RECYCLABLE CARDBOARD BOX LOGO WITH BLACK CAPITAL M */}
+          {/* KRAFT PAPER SHOPPING BAG LOGO WITH HANDLES AND BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ 
               position: 'relative',
-              width: '44px', 
-              height: '44px', 
-              backgroundColor: '#c29b61',
-              borderRadius: '8px',
+              width: '40px', 
+              height: '46px', 
+              backgroundColor: '#b88b58',
+              borderRadius: '4px 4px 6px 6px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(194, 155, 97, 0.3)',
-              border: '1.5px solid #a37c41'
+              boxShadow: '0 4px 12px rgba(184, 139, 88, 0.3)',
+              border: '1px solid #9c7344',
+              marginTop: '6px'
             }}>
-              {/* Box Tape Line Effect */}
+              {/* Paper Bag Handles */}
               <div style={{
                 position: 'absolute',
-                top: 0,
-                bottom: 0,
-                width: '6px',
-                backgroundColor: '#b0884d',
-                opacity: '0.6'
+                top: '-10px',
+                left: '8px',
+                width: '12px',
+                height: '12px',
+                border: '2px solid #9c7344',
+                borderBottom: 'none',
+                borderRadius: '8px 8px 0 0'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                top: '-10px',
+                right: '8px',
+                width: '12px',
+                height: '12px',
+                border: '2px solid #9c7344',
+                borderBottom: 'none',
+                borderRadius: '8px 8px 0 0'
               }}></div>
 
               {/* Black Capital M */}
-              <span style={{ fontSize: '22px', fontWeight: '900', color: '#000000', zIndex: 1 }}>M</span>
+              <span style={{ fontSize: '20px', fontWeight: '900', color: '#000000', zIndex: 1 }}>M</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
