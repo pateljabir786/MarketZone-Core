@@ -79,34 +79,29 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* EXACT KRAFT SHOPPING BAG VECTOR LOGO WITH HANDLES & BLACK CAPITAL M */}
+          {/* SHOPPING BAG WITH CARGO BOX LOGO & BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-            <div style={{ 
-              width: '46px', 
-              height: '46px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              filter: 'drop-shadow(0 4px 8px rgba(184, 139, 88, 0.4))'
-            }}>
-              <svg width="42" height="46" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Left Handles */}
-                <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                {/* Right Handles */}
-                <path d="M55 25 C55 5, 70 5, 70 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                
-                {/* Bag Side Gusset (Left 3D Fold) */}
-                <path d="M12 35 L28 30 L28 105 L12 95 Z" fill="#9c7344"/>
-                
-                {/* Main Front Body of the Bag */}
-                <path d="M28 30 L72 30 L75 105 L25 105 Z" fill="#b88b58"/>
-                
-                {/* Top Serrated Edge Line */}
-                <path d="M28 30 L32 34 L36 30 L40 34 L44 30 L48 34 L52 30 L56 34 L60 30 L64 34 L68 30 L72 34" stroke="#9c7344" strokeWidth="2" fill="none"/>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {/* Shopping Bag SVG */}
+              <div style={{ width: '38px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', filter: 'drop-shadow(0 3px 6px rgba(184, 139, 88, 0.4))' }}>
+                <svg width="36" height="42" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                  <path d="M55 25 C55 5, 70 5, 70 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                  <path d="M12 35 L28 30 L28 105 L12 95 Z" fill="#9c7344"/>
+                  <path d="M28 30 L72 30 L75 105 L25 105 Z" fill="#b88b58"/>
+                  <path d="M28 30 L32 34 L36 30 L40 34 L44 30 L48 34 L52 30 L56 34 L60 30 L64 34 L68 30 L72 34" stroke="#9c7344" strokeWidth="2" fill="none"/>
+                  <text x="50" y="77" fontSize="36" fontWeight="900" fontFamily="sans-serif" fill="#000000" textAnchor="middle">M</text>
+                </svg>
+              </div>
 
-                {/* Center Bold Black Capital M */}
-                <text x="50" y="77" fontSize="36" fontWeight="900" fontFamily="sans-serif" fill="#000000" textAnchor="middle">M</text>
-              </svg>
+              {/* Small Cargo Box SVG */}
+              <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '14px' }}>
+                <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="10" y="25" width="80" height="65" rx="4" fill="#c29b61" stroke="#9c7344" strokeWidth="4"/>
+                  <path d="M50 25 L50 90" stroke="#9c7344" strokeWidth="6" strokeDasharray="4 4"/>
+                  <path d="M10 50 L90 50" stroke="#9c7344" strokeWidth="6"/>
+                </svg>
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
