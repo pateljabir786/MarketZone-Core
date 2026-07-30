@@ -79,32 +79,32 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* SHOPPER BAG LOGO WITH BLACK CAPITAL M */}
+          {/* RECYCLABLE CARDBOARD BOX LOGO WITH BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ 
               position: 'relative',
               width: '44px', 
               height: '44px', 
-              background: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)',
-              borderRadius: '10px',
+              backgroundColor: '#c29b61',
+              borderRadius: '8px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 15px rgba(56, 189, 248, 0.3)',
-              border: '1px solid rgba(255, 255, 255, 0.3)'
+              boxShadow: '0 4px 12px rgba(194, 155, 97, 0.3)',
+              border: '1.5px solid #a37c41'
             }}>
-              {/* Bag Handle */}
+              {/* Box Tape Line Effect */}
               <div style={{
                 position: 'absolute',
-                top: '-7px',
-                width: '18px',
-                height: '10px',
-                border: '2px solid #ffffff',
-                borderBottom: 'none',
-                borderRadius: '8px 8px 0 0'
+                top: 0,
+                bottom: 0,
+                width: '6px',
+                backgroundColor: '#b0884d',
+                opacity: '0.6'
               }}></div>
+
               {/* Black Capital M */}
-              <span style={{ fontSize: '22px', fontWeight: '900', color: '#000000', marginTop: '4px' }}>M</span>
+              <span style={{ fontSize: '22px', fontWeight: '900', color: '#000000', zIndex: 1 }}>M</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
