@@ -79,23 +79,23 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* LOGO WITH SKY BLUE M-CART COMBO STYLE */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {/* BAZAAR MARKETPLACE LOGO WITH SHOPPING BAG & M COMBO */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
-              backgroundColor: '#0284c7', 
+              background: 'linear-gradient(135deg, #0284c7 0%, #10b981 100%)', 
               color: '#ffffff', 
-              width: '40px', 
-              height: '40px', 
-              borderRadius: '10px', 
+              width: '42px', 
+              height: '42px', 
+              borderRadius: '12px', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
               fontWeight: '900', 
               fontSize: '20px',
-              boxShadow: '0 4px 15px rgba(2, 132, 199, 0.5)',
+              boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)',
               border: '1.5px solid #38bdf8'
             }}>
-              M🛒
+              🛍️M
             </div>
             <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#38bdf8', letterSpacing: '1px' }}>
               Market<span style={{ color: '#fff' }}>Zone</span>
