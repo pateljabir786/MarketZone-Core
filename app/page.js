@@ -1,116 +1,107 @@
 'use client';
 import { useState } from 'react';
 export default function Home() {
-const [currency, setCurrency] = useState('USD');
+const [cur, setCur] = useState('USD');
 const [cart, setCart] = useState([]);
-const [showAddForm, setShowAddForm] = useState(false);
-const [newTitle, setNewTitle] = useState('');
-const [newPrice, setNewPrice] = useState('');
-const [newCategory, setNewCategory] = useState('');
-const [newMoq, setNewMoq] = useState('');
-const [products, setProducts] = useState([
-{ id: 1, name: 'Premium Wireless Earbuds', price: 49.99, category: 'Electronics', moq: '10 Pieces' },
-{ id: 2, name: 'Smart Fitness Watch Series X', price: 89.99, category: 'Electronics', moq: '5 Pieces' },
-{ id: 3, name: 'Minimalist Leather Backpack', price: 35.50, category: 'Fashion', moq: '20 Pieces' }
+const [showForm, setShowForm] = useState(false);
+const [title, setTitle] = useState('');
+const [price, setPrice] = useState('');
+const [cat, setCat] = useState('');
+const [moq, setMoq] = useState('');
+const [prods, setProds] = useState([
+{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs' },
+{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs' },
+{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs' }
 ]);
-const symbols = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
-const rates = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
-const convertPrice = (priceInUSD) => {
-return (priceInUSD * rates[currency]).toFixed(2);
-};
-const handleAddProduct = (e) => {
+const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
+const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
+const conv = (p) => (p * rt[cur]).toFixed(2);
+const addProd = (e) => {
 e.preventDefault();
-if (!newTitle || !newPrice) return;
-const newProductItem = {
+if (!title || !price) return;
+setProds([{
 id: Date.now(),
-name: newTitle,
-price: parseFloat(newPrice),
-category: newCategory || 'General',
-moq: newMoq || '1 Piece'
-};
-setProducts([newProductItem, ...products]);
-setNewTitle('');
-setNewPrice('');
-setNewCategory('');
-setNewMoq('');
-setShowAddForm(false);
-};
-const addToCart = (product) => {
-setCart([...cart, product]);
+name: title,
+price: parseFloat(price),
+cat: cat || 'General',
+moq: moq || '1 Pc'
+}, ...prods]);
+setTitle(''); setPrice(''); setCat(''); setMoq('');
+setShowForm(false);
 };
 return (
-<div style={{ minHeight: '100vh', backgroundColor: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif' }}>
-<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', backgroundColor: '#1e293b' }}>
+<div style={{ minHeight: '100vh', bg: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif', background: '#0f172a', paddingBottom: '30px' }}>
+<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b' }}>
 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-<div style={{ backgroundColor: '#f59e0b', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', color: '#000' }}>🛍️</div>
+<span style={{ background: '#f59e0b', padding: '6px 10px', borderRadius: '6px', fontWeight: 'bold', color: '#000' }}>🛍️</span>
 <div>
 <h1 style={{ fontSize: '18px', margin: 0, color: '#38bdf8' }}>MarketZone</h1>
 <span style={{ fontSize: '10px', color: '#94a3b8' }}>B2B & B2C MARKETPLACE</span>
 </div>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-<select value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ padding: '6px', borderRadius: '4px', backgroundColor: '#334155', color: '#fff', border: 'none' }}>
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+<select value={cur} onChange={(e) => setCur(e.target.value)} style={{ padding: '6px', borderRadius: '4px', bg: '#334155', color: '#fff', border: 'none', background: '#334155' }}>
 <option value="USD">USD ($)</option>
 <option value="ZAR">ZAR (R)</option>
 <option value="INR">INR (₹)</option>
 <option value="EUR">EUR (€)</option>
 </select>
-<button style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', fontWeight: 'bold' }}>
+<button style={{ bg: '#0284c7', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7' }}>
 Cart ({cart.length})
 </button>
 </div>
 </header>
 <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-<h2 style={{ fontSize: '20px', margin: 0 }}>Live Product Marketplace</h2>
-<button onClick={() => setShowAddForm(!showAddForm)} style={{ backgroundColor: '#10b981', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-{showAddForm ? 'Close Form' : '+ Add Product (Vendor)'}
+<h2 style={{ fontSize: '18px', margin: 0 }}>Live Marketplace</h2>
+<button onClick={() => setShowForm(!showForm)} style={{ bg: '#10b981', color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', background: '#10b981' }}>
+{showForm ? 'Close' : '+ Add Product'}
 </button>
 </div>
-{showAddForm && (
-<form onSubmit={handleAddProduct} style={{ maxWidth: '800px', margin: '0 auto 20px auto', backgroundColor: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
-<h3 style={{ marginTop: 0, color: '#38bdf8' }}>Vendor Portal - Add New Item</h3>
+{showForm && (
+<form onSubmit={addProd} style={{ maxWidth: '800px', margin: '0 auto 20px auto', background: '#1e293b', padding: '15px', borderRadius: '8px', border: '1px solid #334155' }}>
+<h3 style={{ marginTop: 0, color: '#38bdf8', fontSize: '16px' }}>Vendor Add Product</h3>
+<div style={{ marginBottom: '10px' }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Title</label>
+<input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Product name" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+<div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+<div style={{ flex: 1 }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Price (USD)</label>
+<input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="99.00" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+<div style={{ flex: 1 }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Category</label>
+<input type="text" value={cat} onChange={(e) => setCat(e.target.value)} placeholder="Electronics" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+</div>
 <div style={{ marginBottom: '12px' }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Product Title:</label>
-<input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Enter product name..." required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>MOQ</label>
+<input type="text" value={moq} onChange={(e) => setMoq(e.target.value)} placeholder="10 Pcs" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
 </div>
-<div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-<div style={{ flex: 1 }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Price (USD):</label>
-<input type="number" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} placeholder="99.00" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-<div style={{ flex: 1 }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Category:</label>
-<input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} placeholder="Electronics, Fashion..." style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-</div>
-<div style={{ marginBottom: '15px' }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>MOQ (Minimum Order):</label>
-<input type="text" value={newMoq} onChange={(e) => setNewMoq(e.target.value)} placeholder="100 Pieces" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-<button type="submit" style={{ width: '100%', backgroundColor: '#f59e0b', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-Publish Product to Marketplace
+<button type="submit" style={{ width: '100%', background: '#f59e0b', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+Publish
 </button>
 </form>
 )}
-<div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gridTemplateColumns: '1fr', gap: '15px' }}>
-{products.map((item) => (
-<div key={item.id} style={{ backgroundColor: '#1e293b', border: '1px solid #334155', padding: '15px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+<div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gap: '12px' }}>
+{prods.map((item) => (
+<div key={item.id} style={{ background: '#1e293b', border: '1px solid #334155', padding: '12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 <div>
-<span style={{ fontSize: '11px', backgroundColor: '#0284c7', padding: '2px 6px', borderRadius: '4px' }}>{item.category}</span>
-<h3 style={{ fontSize: '16px', margin: '8px 0 5px 0' }}>{item.name}</h3>
-<p style={{ fontSize: '13px', color: '#0da3b8', margin: 0 }}>MOQ Required: {item.moq}</p>
-<p style={{ fontSize: '18px', fontWeight: 'bold', color: '#38bdf8', margin: '8px 0 0 0' }}>
-{symbols[currency]} {convertPrice(item.price)}
+<span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
+<h3 style={{ fontSize: '15px', margin: '6px 0 4px 0', color: '#fff' }}>{item.name}</h3>
+<p style={{ fontSize: '12px', color: '#0da3b8', margin: 0 }}>MOQ: {item.moq}</p>
+<p style={{ fontSize: '16px', fontWeight: 'bold', color: '#38bdf8', margin: '6px 0 0 0' }}>
+{sym[cur]} {conv(item.price)}
 </p>
 </div>
-<button onClick={() => addToCart(item)} style={{ backgroundColor: '#2563eb', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', height: 'fit-content' }}>
-Add Cart
+<button onClick={() => setCart([...cart, item])} style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', height: 'fit-content' }}>
+Buy
 </button>
 </div>
 ))}
 </div>
-<footer style={{ textAlign: 'center', marginTop: '40px', fontSize: '12px', color: '#64748b', paddingBottom: '20px' }}>
-© 2026 MarketZone. All rights reserved. B2B & B2C Marketplace Engine.
+<footer style={{ textAlign: 'center', marginTop: '30px', fontSize: '11px', color: '#64748b' }}>
+© 2026 MarketZone B2B & B2C Engine.
 </footer>
 </div>
 );
