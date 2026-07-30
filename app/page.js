@@ -79,11 +79,11 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* KRAFT PAPER SHOPPING BAG LOGO WITH HANDLES AND BLACK CAPITAL M */}
+          {/* SHOPPING BAG LOGO WITH TWIN HANDLES AND BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ 
               position: 'relative',
-              width: '40px', 
+              width: '38px', 
               height: '46px', 
               backgroundColor: '#b88b58',
               borderRadius: '4px 4px 6px 6px',
@@ -92,32 +92,32 @@ export default function Home() {
               justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(184, 139, 88, 0.3)',
               border: '1px solid #9c7344',
-              marginTop: '6px'
+              marginTop: '8px'
             }}>
-              {/* Paper Bag Handles */}
+              {/* Twin Handle Loops */}
               <div style={{
                 position: 'absolute',
                 top: '-10px',
-                left: '8px',
-                width: '12px',
-                height: '12px',
-                border: '2px solid #9c7344',
+                left: '6px',
+                width: '10px',
+                height: '11px',
+                border: '2px solid #8c6334',
                 borderBottom: 'none',
                 borderRadius: '8px 8px 0 0'
               }}></div>
               <div style={{
                 position: 'absolute',
                 top: '-10px',
-                right: '8px',
-                width: '12px',
-                height: '12px',
-                border: '2px solid #9c7344',
+                right: '6px',
+                width: '10px',
+                height: '11px',
+                border: '2px solid #8c6334',
                 borderBottom: 'none',
                 borderRadius: '8px 8px 0 0'
               }}></div>
 
               {/* Black Capital M */}
-              <span style={{ fontSize: '20px', fontWeight: '900', color: '#000000', zIndex: 1 }}>M</span>
+              <span style={{ fontSize: '20px', fontWeight: '900', color: '#000000', zIndex: 1, marginTop: '2px' }}>M</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
