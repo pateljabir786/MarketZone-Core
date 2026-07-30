@@ -52,12 +52,13 @@ export default function Home() {
 
   const currencyRates = {
     USD: { symbol: '$', rate: 1 },
-    EUR: { symbol: '€', rate: 0.92 },
+    ZAR: { symbol: 'R', rate: 18.5 },
     INR: { symbol: '₹', rate: 83 },
+    EUR: { symbol: '€', rate: 0.92 },
   };
 
   const convertPrice = (usd) => {
-    const curr = currencyRates[currency];
+    const curr = currencyRates[currency] || currencyRates.USD;
     return `${curr.symbol}${(usd * curr.rate).toFixed(2)}`;
   };
 
@@ -67,7 +68,7 @@ export default function Home() {
     item.supplier.toLowerCase().includes(search.toLowerCase())
   );
 
-  const addToCard = (product) => {
+  const addToCart = (product) => {
     setCart([...cart, product]);
     alert(`${product.name} added to cart!`);
   };
@@ -79,29 +80,24 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* SHOPPING BAG WITH CAPITAL M & CARGO BOX LOGO */}
+          {/* SHOPPING BAG WITH CAPITAL M LOGO */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              {/* Shopping Bag SVG with Capital M */}
-              <div style={{ width: '38px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', filter: 'drop-shadow(0 3px 6px rgba(184, 139, 88, 0.4))' }}>
-                <svg width="36" height="42" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                  <path d="M55 25 C55 5, 70 5, 70 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                  <path d="M12 35 L28 30 L28 105 L12 95 Z" fill="#9c7344"/>
-                  <path d="M28 30 L72 30 L75 105 L25 105 Z" fill="#b88b58"/>
-                  <path d="M28 30 L32 34 L36 30 L40 34 L44 30 L48 34 L52 30 L56 34 L60 30 L64 34 L68 30 L72 34" stroke="#9c7344" strokeWidth="2" fill="none"/>
-                  <text x="50" y="77" fontSize="36" fontWeight="900" fontFamily="sans-serif" fill="#000000" textAnchor="middle">M</text>
-                </svg>
-              </div>
-
-              {/* Small Cargo Box SVG */}
-              <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '14px' }}>
-                <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="10" y="25" width="80" height="65" rx="4" fill="#c29b61" stroke="#9c7344" strokeWidth="4"/>
-                  <path d="M50 25 L50 90" stroke="#9c7344" strokeWidth="6" strokeDasharray="4 4"/>
-                  <path d="M10 50 L90 50" stroke="#9c7344" strokeWidth="6"/>
-                </svg>
-              </div>
+            <div style={{ 
+              width: '46px', 
+              height: '46px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              filter: 'drop-shadow(0 4px 8px rgba(184, 139, 88, 0.4))'
+            }}>
+              <svg width="42" height="46" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                <path d="M55 25 C55 5, 70 5, 70 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                <path d="M12 35 L28 30 L28 105 L12 95 Z" fill="#9c7344"/>
+                <path d="M28 30 L72 30 L75 105 L25 105 Z" fill="#b88b58"/>
+                <path d="M28 30 L32 34 L36 30 L40 34 L44 30 L48 34 L52 30 L56 34 L60 30 L64 34 L68 30 L72 34" stroke="#9c7344" strokeWidth="2" fill="none"/>
+                <text x="50" y="77" fontSize="36" fontWeight="900" fontFamily="sans-serif" fill="#000000" textAnchor="middle">M</text>
+              </svg>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -112,6 +108,7 @@ export default function Home() {
             </div>
           </div>
 
+          {/* SEARCH BAR */}
           <div style={{ flex: '1', maxWidth: '500px', minWidth: '250px' }}>
             <input
               type="text"
@@ -130,6 +127,7 @@ export default function Home() {
             />
           </div>
 
+          {/* CURRENCY & CART */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <select 
               value={currency} 
@@ -137,8 +135,9 @@ export default function Home() {
               style={{ backgroundColor: '#0f172a', color: '#cbd5e1', border: '1px solid #334155', padding: '8px', borderRadius: '6px', outline: 'none', cursor: 'pointer' }}
             >
               <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
+              <option value="ZAR">ZAR (R)</option>
               <option value="INR">INR (₹)</option>
+              <option value="EUR">EUR (€)</option>
             </select>
             
             <div style={{ backgroundColor: '#0284c7', color: '#fff', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold' }}>
@@ -148,7 +147,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO BANNER SECTION */}
+      {/* HERO BANNER */}
       <section style={{ textAlign: 'center', padding: '40px 20px', backgroundColor: '#020617', borderBottom: '1px solid #1e293b' }}>
         <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#fff', marginBottom: '10px' }}>
           Global B2B & B2C Multi-Vendor Platform
@@ -158,7 +157,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* CATALOG SECTION */}
+      {/* PRODUCTS CATALOG */}
       <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 20px' }}>
         <h2 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '20px', color: '#f1f5f9' }}>
           Featured Supplier Products ({filteredProducts.length})
@@ -215,7 +214,7 @@ export default function Home() {
                     Inquire
                   </button>
                   <button 
-                    onClick={() => addToCard(item)}
+                    onClick={() => addToCart(item)}
                     style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '8px', borderRadius: '6px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
                   >
                     Add Cart
@@ -227,7 +226,7 @@ export default function Home() {
         </div>
       </main>
 
-      {/* FOOTER SECTION */}
+      {/* FOOTER */}
       <footer style={{ borderTop: '1px solid #1e293b', backgroundColor: '#020617', padding: '25px 20px', textAlign: 'center', color: '#64748b', fontSize: '13px', marginTop: '40px' }}>
         <p>© 2026 MarketZone. All rights reserved. B2B & B2C Marketplace Engine.</p>
       </footer>
