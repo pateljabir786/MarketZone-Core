@@ -79,10 +79,10 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* SHOPPING BAG WITH CARGO BOX LOGO & BLACK CAPITAL M */}
+          {/* SHOPPING BAG WITH CAPITAL M & CARGO BOX LOGO */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              {/* Shopping Bag SVG */}
+              {/* Shopping Bag SVG with Capital M */}
               <div style={{ width: '38px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', filter: 'drop-shadow(0 3px 6px rgba(184, 139, 88, 0.4))' }}>
                 <svg width="36" height="42" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
@@ -95,8 +95,8 @@ export default function Home() {
               </div>
 
               {/* Small Cargo Box SVG */}
-              <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '14px' }}>
-                <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '14px' }}>
+                <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="10" y="25" width="80" height="65" rx="4" fill="#c29b61" stroke="#9c7344" strokeWidth="4"/>
                   <path d="M50 25 L50 90" stroke="#9c7344" strokeWidth="6" strokeDasharray="4 4"/>
                   <path d="M10 50 L90 50" stroke="#9c7344" strokeWidth="6"/>
