@@ -122,7 +122,7 @@ export default function MarketZoneHome() {
             Publish Product to Marketplace
           </button>
         </form>
-      )}
+      )
 
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gridTemplateColumns: '1fr', gap: '15px' }}>
         {products.map((item) => (
