@@ -79,45 +79,34 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* SHOPPING BAG LOGO WITH TWIN HANDLES AND BLACK CAPITAL M */}
+          {/* EXACT KRAFT SHOPPING BAG VECTOR LOGO WITH HANDLES & BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ 
-              position: 'relative',
-              width: '38px', 
+              width: '46px', 
               height: '46px', 
-              backgroundColor: '#b88b58',
-              borderRadius: '4px 4px 6px 6px',
-              display: 'flex',
-              alignItems: 'center',
+              display: 'flex', 
+              alignItems: 'center', 
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(184, 139, 88, 0.3)',
-              border: '1px solid #9c7344',
-              marginTop: '8px'
+              filter: 'drop-shadow(0 4px 8px rgba(184, 139, 88, 0.4))'
             }}>
-              {/* Twin Handle Loops */}
-              <div style={{
-                position: 'absolute',
-                top: '-10px',
-                left: '6px',
-                width: '10px',
-                height: '11px',
-                border: '2px solid #8c6334',
-                borderBottom: 'none',
-                borderRadius: '8px 8px 0 0'
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                top: '-10px',
-                right: '6px',
-                width: '10px',
-                height: '11px',
-                border: '2px solid #8c6334',
-                borderBottom: 'none',
-                borderRadius: '8px 8px 0 0'
-              }}></div>
+              <svg width="42" height="46" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Left Handles */}
+                <path d="M30 25 C30 5, 45 5, 45 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                {/* Right Handles */}
+                <path d="M55 25 C55 5, 70 5, 70 25" stroke="#8c6334" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                
+                {/* Bag Side Gusset (Left 3D Fold) */}
+                <path d="M12 35 L28 30 L28 105 L12 95 Z" fill="#9c7344"/>
+                
+                {/* Main Front Body of the Bag */}
+                <path d="M28 30 L72 30 L75 105 L25 105 Z" fill="#b88b58"/>
+                
+                {/* Top Serrated Edge Line */}
+                <path d="M28 30 L32 34 L36 30 L40 34 L44 30 L48 34 L52 30 L56 34 L60 30 L64 34 L68 30 L72 34" stroke="#9c7344" strokeWidth="2" fill="none"/>
 
-              {/* Black Capital M */}
-              <span style={{ fontSize: '20px', fontWeight: '900', color: '#000000', zIndex: 1, marginTop: '2px' }}>M</span>
+                {/* Center Bold Black Capital M */}
+                <text x="50" y="77" fontSize="36" fontWeight="900" fontFamily="sans-serif" fill="#000000" textAnchor="middle">M</text>
+              </svg>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
