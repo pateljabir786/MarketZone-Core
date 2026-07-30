@@ -67,7 +67,7 @@ export default function Home() {
     item.supplier.toLowerCase().includes(search.toLowerCase())
   );
 
-  const addToCart = (product) => {
+  const addToCard = (product) => {
     setCart([...cart, product]);
     alert(`${product.name} added to cart!`);
   };
@@ -79,25 +79,34 @@ export default function Home() {
       <header style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#020617', padding: '15px 20px', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px', flexWrap: 'wrap' }}>
           
-          {/* HEART-CRAFTED PROFESSIONAL MARKETPLACE LOGO */}
+          {/* SHOPPER BAG LOGO WITH BLACK CAPITAL M */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
             <div style={{ 
-              background: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)', 
+              position: 'relative',
               width: '44px', 
               height: '44px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              boxShadow: '0 6px 20px rgba(2, 132, 199, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
+              background: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)',
+              borderRadius: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 15px rgba(56, 189, 248, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.3)'
             }}>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
+              {/* Bag Handle */}
+              <div style={{
+                position: 'absolute',
+                top: '-7px',
+                width: '18px',
+                height: '10px',
+                border: '2px solid #ffffff',
+                borderBottom: 'none',
+                borderRadius: '8px 8px 0 0'
+              }}></div>
+              {/* Black Capital M */}
+              <span style={{ fontSize: '22px', fontWeight: '900', color: '#000000', marginTop: '4px' }}>M</span>
             </div>
+
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ fontSize: '22px', fontWeight: '900', color: '#38bdf8', letterSpacing: '1px', lineHeight: '1.1' }}>
                 Market<span style={{ color: '#ffffff' }}>Zone</span>
@@ -209,7 +218,7 @@ export default function Home() {
                     Inquire
                   </button>
                   <button 
-                    onClick={() => addToCart(item)}
+                    onClick={() => addToCard(item)}
                     style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '8px', borderRadius: '6px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
                   >
                     Add Cart
