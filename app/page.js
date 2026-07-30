@@ -113,7 +113,7 @@ export default function Home() {
               <div style={{ fontSize: '22px', fontWeight: '900', color: '#38bdf8', letterSpacing: '1px', lineHeight: '1.1' }}>
                 Market<span style={{ color: '#ffffff' }}>Zone</span>
               </div>
-              <span style={{ fontSize: '10px', color: '#94a3b8', letterSpacing: '2px', fontWeight: '600', textTransform: 'uppercase' }}>Global B2B Hub</span>
+              <span style={{ fontSize: '9px', color: '#94a3b8', letterSpacing: '1px', fontWeight: '600', textTransform: 'uppercase' }}>B2B & B2C Marketplace</span>
             </div>
           </div>
 
