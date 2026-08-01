@@ -1,117 +1,162 @@
 'use client';
 import { useState } from 'react';
+
 export default function Home() {
-const [currency, setCurrency] = useState('USD');
-const [cart, setCart] = useState([]);
-const [showAddForm, setShowAddForm] = useState(false);
-const [newTitle, setNewTitle] = useState('');
-const [newPrice, setNewPrice] = useState('');
-const [newCategory, setNewCategory] = useState('');
-const [newMoq, setNewMoq] = useState('');
-const [products, setProducts] = useState([
-{ id: 1, name: 'Premium Wireless Earbuds', price: 49.99, category: 'Electronics', moq: '10 Pieces' },
-{ id: 2, name: 'Smart Fitness Watch Series X', price: 89.99, category: 'Electronics', moq: '5 Pieces' },
-{ id: 3, name: 'Minimalist Leather Backpack', price: 35.50, category: 'Fashion', moq: '20 Pieces' }
-]);
-const symbols = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
-const rates = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
-const convertPrice = (priceInUSD) => {
-return (priceInUSD * rates[currency]).toFixed(2);
-};
-const handleAddProduct = (e) => {
-e.preventDefault();
-if (!newTitle || !newPrice) return;
-const newProductItem = {
-id: Date.now(),
-name: newTitle,
-price: parseFloat(newPrice),
-category: newCategory || 'General',
-moq: newMoq || '1 Piece'
-};
-setProducts([newProductItem, ...products]);
-setNewTitle('');
-setNewPrice('');
-setNewCategory('');
-setNewMoq('');
-setShowAddForm(false);
-};
-const addToCart = (product) => {
-setCart([...cart, product]);
-};
-return (
-<div style={{ minHeight: '100vh', backgroundColor: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif' }}>
-<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', backgroundColor: '#1e293b' }}>
-<div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-<div style={{ backgroundColor: '#f59e0b', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', color: '#000' }}>🛍️</div>
-<div>
-<h1 style={{ fontSize: '18px', margin: 0, color: '#38bdf8' }}>MarketZone</h1>
-<span style={{ fontSize: '10px', color: '#94a3b8' }}>B2B & B2C MARKETPLACE</span>
-</div>
-</div>
-<div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-<select value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ padding: '6px', borderRadius: '4px', backgroundColor: '#334155', color: '#fff', border: 'none' }}>
-<option value="USD">USD ($)</option>
-<option value="ZAR">ZAR (R)</option>
-<option value="INR">INR (₹)</option>
-<option value="EUR">EUR (€)</option>
-</select>
-<button style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', fontWeight: 'bold' }}>
-Cart ({cart.length})
-</button>
-</div>
-</header>
-<div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-<h2 style={{ fontSize: '20px', margin: 0 }}>Live Product Marketplace</h2>
-<button onClick={() => setShowAddForm(!showAddForm)} style={{ backgroundColor: '#10b981', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-{showAddForm ? 'Close Form' : '+ Add Product (Vendor)'}
-</button>
-</div>
-{showAddForm && (
-<form onSubmit={handleAddProduct} style={{ maxWidth: '800px', margin: '0 auto 20px auto', backgroundColor: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
-<h3 style={{ marginTop: 0, color: '#38bdf8' }}>Vendor Portal - Add New Item</h3>
-<div style={{ marginBottom: '12px' }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Product Title:</label>
-<input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Enter product name..." required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-<div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-<div style={{ flex: 1 }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Price (USD):</label>
-<input type="number" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} placeholder="99.00" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-<div style={{ flex: 1 }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>Category:</label>
-<input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} placeholder="Electronics, Fashion..." style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-</div>
-<div style={{ marginBottom: '15px' }}>
-<label style={{ display: 'block', fontSize: '14px', marginBottom: '5px' }}>MOQ (Minimum Order):</label>
-<input type="text" value={newMoq} onChange={(e) => setNewMoq(e.target.value)} placeholder="100 Pieces" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-</div>
-<button type="submit" style={{ width: '100%', backgroundColor: '#f59e0b', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-Publish Product to Marketplace
-</button>
-</form>
-)}
-<div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gridTemplateColumns: '1fr', gap: '15px' }}>
-{products.map((item) => (
-<div key={item.id} style={{ backgroundColor: '#1e293b', border: '1px solid #334155', padding: '15px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-<div>
-<span style={{ fontSize: '11px', backgroundColor: '#0284c7', padding: '2px 6px', borderRadius: '4px' }}>{item.category}</span>
-<h3 style={{ fontSize: '16px', margin: '8px 0 5px 0' }}>{item.name}</h3>
-<p style={{ fontSize: '13px', color: '#0da3b8', margin: 0 }}>MOQ Required: {item.moq}</p>
-<p style={{ fontSize: '18px', fontWeight: 'bold', color: '#38bdf8', margin: '8px 0 0 0' }}>
-{symbols[currency]} {convertPrice(item.price)}
-</p>
-</div>
-<button onClick={() => addToCart(item)} style={{ backgroundColor: '#2563eb', color: '#fff', border: 'none', padding: '10px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', height: 'fit-content' }}>
-Add Cart
-</button>
-</div>
-))}
-</div>
-<footer style={{ textAlign: 'center', marginTop: '40px', fontSize: '12px', color: '#64748b', paddingBottom: '20px' }}>
-© 2026 MarketZone. All rights reserved. B2B & B2C Marketplace Engine.
-</footer>
-</div>
-);
+  const [activeTab, setActiveTab] = useState('marketplace'); // 'marketplace' or 'add-product'
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      title: 'Premium Cotton T-Shirt',
+      category: 'Clothing',
+      price: 24.99,
+      currency: 'USD',
+      stock: 50,
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60'
+    },
+    {
+      id: 2,
+      title: 'Wireless Bluetooth Earbuds',
+      category: 'Electronics',
+      price: 49.99,
+      currency: 'USD',
+      stock: 30,
+      image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60'
+    }
+  ]);
+
+  const [formData, setFormData] = useState({
+    title: '',
+    category: 'Clothing',
+    price: '',
+    stock: '',
+    description: '',
+    image: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.price) return;
+
+    const newProduct = {
+      id: Date.now(),
+      title: formData.title,
+      category: formData.category,
+      price: parseFloat(formData.price),
+      currency: 'USD',
+      stock: parseInt(formData.stock) || 1,
+      image: formData.image || 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500&auto=format&fit=crop&q=60'
+    };
+
+    setProducts([newProduct, ...products]);
+    setFormData({ title: '', category: 'Clothing', price: '', stock: '', description: '', image: '' });
+    setActiveTab('marketplace');
+  };
+
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#f8fafc', margin: 0 }}>
+      {/* Navigation Bar */}
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1.5rem', backgroundColor: '#ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', sticky: 'top' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
+          <div style={{ backgroundColor: '#000000', color: '#ffffff', width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>
+            M
+          </div>
+          <span style={{ fontSize: '1.3rem', fontWeight: '800', color: '#0f172a' }}>arketZone</span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+          <button 
+            onClick={() => setActiveTab(activeTab === 'marketplace' ? 'add-product' : 'marketplace')} 
+            style={{ padding: '0.5rem 0.9rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: 'white', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.85rem' }}>
+            {activeTab === 'marketplace' ? '+ Vendor: Add Product' : 'View Store'}
+          </button>
+        </div>
+      </nav>
+
+      {/* Main Content Area */}
+      <main style={{ padding: '1.5rem', maxWidth: '1000px', margin: '0 auto' }}>
+        
+        {/* TAB 1: MARKETPLACE HOME */}
+        {activeTab === 'marketplace' && (
+          <div>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h1 style={{ fontSize: '2rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.5rem' }}>MarketZone Marketplace</h1>
+              <p style={{ color: '#64748b', fontSize: '0.95rem' }}>Explore products listed by global vendors</p>
+            </div>
+
+            {/* Product Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.2rem' }}>
+              {products.map((item) => (
+                <div key={item.id} style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
+                  <img src={item.image} alt={item.title} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
+                  <div style={{ padding: '1rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#2563eb', textTransform: 'uppercase' }}>{item.category}</span>
+                    <h3 style={{ fontSize: '1rem', color: '#0f172a', margin: '0.3rem 0', fontWeight: '700', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
+                      <span style={{ fontSize: '1.1rem', fontWeight: '800', color: '#0f172a' }}>${item.price}</span>
+                      <span style={{ fontSize: '0.8rem', color: '#16a34a', fontWeight: '600' }}>Stock: {item.stock}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: VENDOR ADD PRODUCT FORM */}
+        {activeTab === 'add-product' && (
+          <div style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', maxWidth: '500px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
+               Add New Product (Vendor Portal)
+            </h2>
+
+            <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Product Title *</label>
+                <input type="text" name="title" value={formData.title} onChange={handleInputChange} placeholder="e.g. Nike Running Shoes" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
+              </div>
+
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Category</label>
+                  <select name="category" value={formData.category} onChange={handleInputChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Footwear">Footwear</option>
+                    <option value="Groceries">Groceries</option>
+                  </select>
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Price ($) *</label>
+                  <input type="number" name="price" value={formData.price} onChange={handleInputChange} placeholder="29.99" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Stock Quantity</label>
+                  <input type="number" name="stock" value={formData.stock} onChange={handleInputChange} placeholder="10" style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Image URL</label>
+                  <input type="text" name="image" value={formData.image} onChange={handleInputChange} placeholder="https://..." style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
+                </div>
+              </div>
+
+              <button type="submit" style={{ padding: '0.8rem', backgroundColor: '#16a34a', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem' }}>
+                Publish Product
+              </button>
+            </form>
+          </div>
+        )}
+
+      </main>
+    </div>
+  );
 }
