@@ -2,14 +2,13 @@
 import { useState } from 'react';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('marketplace'); // 'marketplace' or 'add-product'
+  const [activeTab, setActiveTab] = useState('marketplace');
   const [products, setProducts] = useState([
     {
       id: 1,
       title: 'Premium Cotton T-Shirt',
       category: 'Clothing',
       price: 24.99,
-      currency: 'USD',
       stock: 50,
       image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60'
     },
@@ -18,7 +17,6 @@ export default function Home() {
       title: 'Wireless Bluetooth Earbuds',
       category: 'Electronics',
       price: 49.99,
-      currency: 'USD',
       stock: 30,
       image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60'
     }
@@ -47,7 +45,6 @@ export default function Home() {
       title: formData.title,
       category: formData.category,
       price: parseFloat(formData.price),
-      currency: 'USD',
       stock: parseInt(formData.stock) || 1,
       image: formData.image || 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500&auto=format&fit=crop&q=60'
     };
@@ -58,20 +55,28 @@ export default function Home() {
   };
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#f8fafc', margin: 0 }}>
+    <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#ffffff', margin: 0, color: '#0f172a' }}>
       {/* Navigation Bar */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1.5rem', backgroundColor: '#ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', sticky: 'top' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
-          <div style={{ backgroundColor: '#000000', color: '#ffffff', width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>
-            M
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', sticky: 'top' }}>
+        
+        {/* Kraft Paper Bag with MarketZone Printed Directly On It */}
+        <div style={{ cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
+          <div style={{ position: 'relative', height: '48px', display: 'flex', alignItems: 'center' }}>
+            <svg height="48" viewBox="0 0 220 60" fill="none">
+              {/* Bag Handles */}
+              <path d="M25 15 C25 2, 45 2, 45 15" stroke="#8d5b28" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+              {/* Kraft Brown Paper Bag Body */}
+              <path d="M10 15 L210 15 L215 55 C215 58, 212 60, 208 60 L12 60 C8 60, 5 58, 5 55 Z" fill="#c68a4c" stroke="#a06830" strokeWidth="2" />
+              {/* Printed Logo Text 'MarketZone' on Bag */}
+              <text x="110" y="45" textAnchor="middle" fill="#000000" fontSize="22" fontWeight="900" fontFamily="sans-serif" letterSpacing="-0.5px">MarketZone</text>
+            </svg>
           </div>
-          <span style={{ fontSize: '1.3rem', fontWeight: '800', color: '#0f172a' }}>arketZone</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
           <button 
             onClick={() => setActiveTab(activeTab === 'marketplace' ? 'add-product' : 'marketplace')} 
-            style={{ padding: '0.5rem 0.9rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: 'white', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.85rem' }}>
+            style={{ padding: '0.55rem 1rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: '#ffffff', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.85rem' }}>
             {activeTab === 'marketplace' ? '+ Vendor: Add Product' : 'View Store'}
           </button>
         </div>
@@ -84,17 +89,17 @@ export default function Home() {
         {activeTab === 'marketplace' && (
           <div>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.5rem' }}>MarketZone Marketplace</h1>
+              <h1 style={{ fontSize: '2.1rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.4rem' }}>MarketZone Marketplace</h1>
               <p style={{ color: '#64748b', fontSize: '0.95rem' }}>Explore products listed by global vendors</p>
             </div>
 
             {/* Product Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.2rem' }}>
               {products.map((item) => (
-                <div key={item.id} style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
+                <div key={item.id} style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
                   <div style={{ padding: '1rem' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#2563eb', textTransform: 'uppercase' }}>{item.category}</span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#c68a4c', textTransform: 'uppercase' }}>{item.category}</span>
                     <h3 style={{ fontSize: '1rem', color: '#0f172a', margin: '0.3rem 0', fontWeight: '700', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
                       <span style={{ fontSize: '1.1rem', fontWeight: '800', color: '#0f172a' }}>${item.price}</span>
@@ -109,15 +114,15 @@ export default function Home() {
 
         {/* TAB 2: VENDOR ADD PRODUCT FORM */}
         {activeTab === 'add-product' && (
-          <div style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', maxWidth: '500px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
-               Add New Product (Vendor Portal)
+          <div style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', maxWidth: '500px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
+              Add New Product (Vendor Portal)
             </h2>
 
             <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Product Title *</label>
-                <input type="text" name="title" value={formData.title} onChange={handleInputChange} placeholder="e.g. Nike Running Shoes" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
+                <input type="text" name="title" value={formData.title} onChange={handleInputChange} placeholder="e.g. Leather Jacket" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
               </div>
 
               <div style={{ display: 'flex', gap: '1rem' }}>
@@ -149,7 +154,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <button type="submit" style={{ padding: '0.8rem', backgroundColor: '#16a34a', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem' }}>
+              <button type="submit" style={{ padding: '0.8rem', backgroundColor: '#c68a4c', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem' }}>
                 Publish Product
               </button>
             </form>
