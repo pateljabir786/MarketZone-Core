@@ -59,20 +59,26 @@ export default function Home() {
       {/* Navigation Bar */}
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
         
-        {/* Brand Logo with Kraft Bag Icon */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
+        {/* Brand Logo with Kraft Bag Icon & MarketZone Text */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
           
-          {/* Kraft Brown Shopping Bag Icon */}
-          <div style={{ backgroundColor: '#c68a4c', width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <path d="M16 10a4 4 0 0 1-8 0"></path>
+          {/* Custom SVG Kraft Bag with Handles & Printed 'M' */}
+          <div style={{ width: '36px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="36" height="44" viewBox="0 0 100 120" fill="none">
+              {/* Twin Paper Handles */}
+              <path d="M35 30 C35 8, 65 8, 65 30" stroke="#8d5b28" strokeWidth="5" strokeLinecap="round" fill="none" />
+              <path d="M40 30 C40 14, 60 14, 60 30" stroke="#a06830" strokeWidth="3" strokeLinecap="round" fill="none" />
+              
+              {/* Kraft Brown Bag Body */}
+              <path d="M15 30 L85 30 L92 110 C92 114, 88 116, 82 116 L18 116 C12 116, 8 114, 8 110 Z" fill="#c68a4c" stroke="#965c27" strokeWidth="3" />
+              
+              {/* Printed Capital M in Black */}
+              <text x="50" y="86" textAnchor="middle" fill="#000000" fontSize="52" fontWeight="900" fontFamily="sans-serif">M</text>
             </svg>
           </div>
 
-          {/* Full Brand Name */}
-          <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#0f172a', letterSpacing: '-0.5px' }}>MarketZone</span>
+          {/* MarketZone Brand Text */}
+          <span style={{ fontSize: '1.4rem', fontWeight: '900', color: '#0f172a', letterSpacing: '-0.5px' }}>MarketZone</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
