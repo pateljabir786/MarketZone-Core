@@ -57,40 +57,42 @@ export default function Home() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#ffffff', margin: 0, color: '#0f172a' }}>
       {/* Navigation Bar */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1.5rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', sticky: 'top' }}>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
         
-        {/* Kraft Paper Bag with MarketZone Printed Directly On It */}
-        <div style={{ cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
-          <div style={{ position: 'relative', height: '48px', display: 'flex', alignItems: 'center' }}>
-            <svg height="48" viewBox="0 0 220 60" fill="none">
-              {/* Bag Handles */}
-              <path d="M25 15 C25 2, 45 2, 45 15" stroke="#8d5b28" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-              {/* Kraft Brown Paper Bag Body */}
-              <path d="M10 15 L210 15 L215 55 C215 58, 212 60, 208 60 L12 60 C8 60, 5 58, 5 55 Z" fill="#c68a4c" stroke="#a06830" strokeWidth="2" />
-              {/* Printed Logo Text 'MarketZone' on Bag */}
-              <text x="110" y="45" textAnchor="middle" fill="#000000" fontSize="22" fontWeight="900" fontFamily="sans-serif" letterSpacing="-0.5px">MarketZone</text>
+        {/* Brand Logo with Kraft Bag Icon */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
+          
+          {/* Kraft Brown Shopping Bag Icon */}
+          <div style={{ backgroundColor: '#c68a4c', width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
           </div>
+
+          {/* Full Brand Name */}
+          <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#0f172a', letterSpacing: '-0.5px' }}>MarketZone</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
           <button 
             onClick={() => setActiveTab(activeTab === 'marketplace' ? 'add-product' : 'marketplace')} 
-            style={{ padding: '0.55rem 1rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: '#ffffff', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.85rem' }}>
+            style={{ padding: '0.55rem 0.9rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: '#ffffff', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.8rem' }}>
             {activeTab === 'marketplace' ? '+ Vendor: Add Product' : 'View Store'}
           </button>
         </div>
       </nav>
 
       {/* Main Content Area */}
-      <main style={{ padding: '1.5rem', maxWidth: '1000px', margin: '0 auto' }}>
+      <main style={{ padding: '1.2rem', maxWidth: '1000px', margin: '0 auto' }}>
         
         {/* TAB 1: MARKETPLACE HOME */}
         {activeTab === 'marketplace' && (
           <div>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2.1rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.4rem' }}>MarketZone Marketplace</h1>
-              <p style={{ color: '#64748b', fontSize: '0.95rem' }}>Explore products listed by global vendors</p>
+              <h1 style={{ fontSize: '1.8rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.4rem' }}>MarketZone Marketplace</h1>
+              <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Explore products listed by global vendors</p>
             </div>
 
             {/* Product Grid */}
@@ -115,7 +117,7 @@ export default function Home() {
         {/* TAB 2: VENDOR ADD PRODUCT FORM */}
         {activeTab === 'add-product' && (
           <div style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', maxWidth: '500px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
               Add New Product (Vendor Portal)
             </h2>
 
