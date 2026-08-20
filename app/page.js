@@ -17,9 +17,9 @@ const [cat, setCat] = useState('');
 const [moq, setMoq] = useState('');
 const [gstNo, setGstNo] = useState('');
 const [prods, setProds] = useState([
-{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs', gst: 'GST-DEMO123', store: 'Global Electronics Hub', desc: 'High-quality wireless bluetooth earbuds with active noise cancellation and long battery life.' },
-{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs', gst: 'GST-DEMO123', store: 'Global Electronics Hub', desc: 'Advanced smart watch with fitness tracking, heart rate monitor, and custom dials.' },
-{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs', gst: 'GST-DEMO456', store: 'TrendStyle Store', desc: 'Durable genuine leather backpack suitable for daily office commute and travel.' }
+{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs', store: 'Global Electronics Hub', desc: 'High-quality wireless bluetooth earbuds with active noise cancellation and long battery life.' },
+{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs', store: 'Global Electronics Hub', desc: 'Advanced smart watch with fitness tracking, heart rate monitor, and custom dials.' },
+{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs', store: 'TrendStyle Store', desc: 'Durable genuine leather backpack suitable for daily office commute and travel.' }
 ]);
 const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
 const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
@@ -34,14 +34,13 @@ else setCur('USD');
 };
 const addProd = (e) => {
 e.preventDefault();
-if (!title || !price || !gstNo || !storeName) return;
+if (!title || !price || !storeName) return;
 setProds([{
 id: Date.now(),
 name: title,
 price: parseFloat(price),
 cat: cat || 'General',
 moq: moq || '1 Pc',
-gst: gstNo,
 store: storeName,
 desc: 'Newly listed product on MarketZone marketplace.'
 }, ...prods]);
@@ -126,7 +125,7 @@ filteredProds.map((item) => (
 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap' }}>
 <span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
 <span style={{ fontSize: '10px', background: '#059669', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>Store: {item.store}</span>
-<span style={{ fontSize: '10px', background: '#065f46', border: '1px solid #10b981', padding: '2px 6px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Verified GST: {item.gst}</span>
+<span style={{ fontSize: '10px', background: '#065f46', border: '1px solid #10b981', padding: '2px 6px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Verified Legal Seller</span>
 </div>
 <h3 style={{ fontSize: '15px', margin: '6px 0 4px 0', color: '#fff' }}>{item.name} 🔍</h3>
 <p style={{ fontSize: '12px', color: '#0da3b8', margin: 0 }}>MOQ: {item.moq}</p>
@@ -178,10 +177,6 @@ Items: {ord.items.map(i => i.name).join(', ')}
 <div style={{ marginBottom: '12px' }}>
 <label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Store Name (Brand/Shop Name)</label>
 <input type="text" value={storeName} onChange={(e) => setStoreName(e.target.value)} placeholder="e.g. MS Kids Store" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
-</div>
-<div style={{ marginBottom: '12px' }}>
-<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>GST / Tax Registration Number</label>
-<input type="text" value={gstNo} onChange={(e) => setGstNo(e.target.value)} placeholder="e.g. 24ABCDE1234F1Z5" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
 </div>
 <div style={{ marginBottom: '12px' }}>
 <label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Product Title</label>
@@ -245,7 +240,7 @@ Amount: {sym[cur]} {conv(ord.total)}
 <span style={{ fontSize: '10px', background: '#059669', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>Store: {selectedProduct.store}</span>
 </div>
 <div style={{ marginBottom: '8px' }}>
-<span style={{ fontSize: '11px', background: '#065f46', border: '1px solid #10b981', padding: '3px 8px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Legal Tax Verified: {selectedProduct.gst}</span>
+<span style={{ fontSize: '11px', background: '#065f46', border: '1px solid #10b981', padding: '3px 8px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Verified Legal Seller</span>
 </div>
 <h2 style={{ fontSize: '18px', color: '#fff', margin: '10px 0 6px 0' }}>{selectedProduct.name}</h2>
 <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.4', marginBottom: '10px' }}>{selectedProduct.desc}</p>
