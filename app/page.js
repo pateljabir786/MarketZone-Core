@@ -126,7 +126,7 @@ filteredProds.map((item) => (
 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap' }}>
 <span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
 <span style={{ fontSize: '10px', background: '#059669', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>Store: {item.store}</span>
-<span style={{ fontSize: '10px', background: '#334155', padding: '2px 6px', borderRadius: '4px', color: '#cbd5e1' }}>GST: {item.gst}</span>
+<span style={{ fontSize: '10px', background: '#065f46', border: '1px solid #10b981', padding: '2px 6px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Verified GST: {item.gst}</span>
 </div>
 <h3 style={{ fontSize: '15px', margin: '6px 0 4px 0', color: '#fff' }}>{item.name} 🔍</h3>
 <p style={{ fontSize: '12px', color: '#0da3b8', margin: 0 }}>MOQ: {item.moq}</p>
@@ -240,13 +240,17 @@ Amount: {sym[cur]} {conv(ord.total)}
 <button onClick={() => setSelectedProduct(null)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '18px', cursor: 'pointer' }}>✕</button>
 </div>
 <div style={{ background: '#0f172a', padding: '15px', borderRadius: '8px', marginBottom: '15px', border: '1px solid #334155' }}>
-<span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff', marginRight: '6px' }}>{selectedProduct.cat}</span>
+<div style={{ display: 'flex', gap: '6px', marginBottom: '8px', flexWrap: 'wrap' }}>
+<span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{selectedProduct.cat}</span>
 <span style={{ fontSize: '10px', background: '#059669', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>Store: {selectedProduct.store}</span>
+</div>
+<div style={{ marginBottom: '8px' }}>
+<span style={{ fontSize: '11px', background: '#065f46', border: '1px solid #10b981', padding: '3px 8px', borderRadius: '4px', color: '#34d399', fontWeight: 'bold' }}>🛡️ Legal Tax Verified: {selectedProduct.gst}</span>
+</div>
 <h2 style={{ fontSize: '18px', color: '#fff', margin: '10px 0 6px 0' }}>{selectedProduct.name}</h2>
 <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.4', marginBottom: '10px' }}>{selectedProduct.desc}</p>
 <div style={{ fontSize: '13px', color: '#0da3b8', marginBottom: '6px' }}>Minimum Order Quantity (MOQ): <b>{selectedProduct.moq}</b></div>
-<div style={{ fontSize: '12px', color: '#cbd5e1', marginBottom: '10px' }}>Verified Tax/GST: <b>{selectedProduct.gst}</b></div>
-<div style={{ fontSize: '20px', fontWeight: 'bold', color: '#38bdf8' }}>
+<div style={{ fontSize: '20px', fontWeight: 'bold', color: '#38bdf8', marginTop: '10px' }}>
 {sym[cur]} {conv(selectedProduct.price)}
 </div>
 </div>
