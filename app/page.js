@@ -1,175 +1,130 @@
 'use client';
 import { useState } from 'react';
-
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('marketplace');
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      title: 'Premium Cotton T-Shirt',
-      category: 'Clothing',
-      price: 24.99,
-      stock: 50,
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60'
-    },
-    {
-      id: 2,
-      title: 'Wireless Bluetooth Earbuds',
-      category: 'Electronics',
-      price: 49.99,
-      stock: 30,
-      image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60'
-    }
-  ]);
-
-  const [formData, setFormData] = useState({
-    title: '',
-    category: 'Clothing',
-    price: '',
-    stock: '',
-    description: '',
-    image: ''
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleAddProduct = (e) => {
-    e.preventDefault();
-    if (!formData.title || !formData.price) return;
-
-    const newProduct = {
-      id: Date.now(),
-      title: formData.title,
-      category: formData.category,
-      price: parseFloat(formData.price),
-      stock: parseInt(formData.stock) || 1,
-      image: formData.image || 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500&auto=format&fit=crop&q=60'
-    };
-
-    setProducts([newProduct, ...products]);
-    setFormData({ title: '', category: 'Clothing', price: '', stock: '', description: '', image: '' });
-    setActiveTab('marketplace');
-  };
-
-  return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', minHeight: '100vh', backgroundColor: '#ffffff', margin: 0, color: '#0f172a' }}>
-      {/* Navigation Bar */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.8rem 1rem', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
-        
-        {/* Brand Logo with Kraft Bag Icon & MarketZone Text */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setActiveTab('marketplace')}>
-          
-          {/* Custom SVG Kraft Bag with Handles & Printed 'M' */}
-          <div style={{ width: '36px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="36" height="44" viewBox="0 0 100 120" fill="none">
-              {/* Twin Paper Handles */}
-              <path d="M35 30 C35 8, 65 8, 65 30" stroke="#8d5b28" strokeWidth="5" strokeLinecap="round" fill="none" />
-              <path d="M40 30 C40 14, 60 14, 60 30" stroke="#a06830" strokeWidth="3" strokeLinecap="round" fill="none" />
-              
-              {/* Kraft Brown Bag Body */}
-              <path d="M15 30 L85 30 L92 110 C92 114, 88 116, 82 116 L18 116 C12 116, 8 114, 8 110 Z" fill="#c68a4c" stroke="#965c27" strokeWidth="3" />
-              
-              {/* Printed Capital M in Black */}
-              <text x="50" y="86" textAnchor="middle" fill="#000000" fontSize="52" fontWeight="900" fontFamily="sans-serif">M</text>
-            </svg>
-          </div>
-
-          {/* MarketZone Brand Text */}
-          <span style={{ fontSize: '1.4rem', fontWeight: '900', color: '#0f172a', letterSpacing: '-0.5px' }}>MarketZone</span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-          <button 
-            onClick={() => setActiveTab(activeTab === 'marketplace' ? 'add-product' : 'marketplace')} 
-            style={{ padding: '0.55rem 0.9rem', borderRadius: '6px', background: activeTab === 'add-product' ? '#2563eb' : '#000000', color: '#ffffff', border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '0.8rem' }}>
-            {activeTab === 'marketplace' ? '+ Vendor: Add Product' : 'View Store'}
-          </button>
-        </div>
-      </nav>
-
-      {/* Main Content Area */}
-      <main style={{ padding: '1.2rem', maxWidth: '1000px', margin: '0 auto' }}>
-        
-        {/* TAB 1: MARKETPLACE HOME */}
-        {activeTab === 'marketplace' && (
-          <div>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <h1 style={{ fontSize: '1.8rem', color: '#0f172a', fontWeight: '800', marginBottom: '0.4rem' }}>MarketZone Marketplace</h1>
-              <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Explore products listed by global vendors</p>
-            </div>
-
-            {/* Product Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.2rem' }}>
-              {products.map((item) => (
-                <div key={item.id} style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
-                  <img src={item.image} alt={item.title} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
-                  <div style={{ padding: '1rem' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#c68a4c', textTransform: 'uppercase' }}>{item.category}</span>
-                    <h3 style={{ fontSize: '1rem', color: '#0f172a', margin: '0.3rem 0', fontWeight: '700', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
-                      <span style={{ fontSize: '1.1rem', fontWeight: '800', color: '#0f172a' }}>${item.price}</span>
-                      <span style={{ fontSize: '0.8rem', color: '#16a34a', fontWeight: '600' }}>Stock: {item.stock}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 2: VENDOR ADD PRODUCT FORM */}
-        {activeTab === 'add-product' && (
-          <div style={{ backgroundColor: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', maxWidth: '500px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#0f172a', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' }}>
-              Add New Product (Vendor Portal)
-            </h2>
-
-            <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Product Title *</label>
-                <input type="text" name="title" value={formData.title} onChange={handleInputChange} placeholder="e.g. Leather Jacket" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Category</label>
-                  <select name="category" value={formData.category} onChange={handleInputChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Groceries">Groceries</option>
-                  </select>
-                </div>
-
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Price ($) *</label>
-                  <input type="number" name="price" value={formData.price} onChange={handleInputChange} placeholder="29.99" required style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Stock Quantity</label>
-                  <input type="number" name="stock" value={formData.stock} onChange={handleInputChange} placeholder="10" style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
-                </div>
-
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#334155', marginBottom: '0.3rem' }}>Image URL</label>
-                  <input type="text" name="image" value={formData.image} onChange={handleInputChange} placeholder="https://..." style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }} />
-                </div>
-              </div>
-
-              <button type="submit" style={{ padding: '0.8rem', backgroundColor: '#c68a4c', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem' }}>
-                Publish Product
-              </button>
-            </form>
-          </div>
-        )}
-
-      </main>
-    </div>
-  );
+const [cur, setCur] = useState('USD');
+const [cart, setCart] = useState([]);
+const [showForm, setShowForm] = useState(false);
+const [searchQuery, setSearchQuery] = useState('');
+const [selectedCategory, setSelectedCategory] = useState('All');
+const [title, setTitle] = useState('');
+const [price, setPrice] = useState('');
+const [cat, setCat] = useState('');
+const [moq, setMoq] = useState('');
+const [prods, setProds] = useState([
+{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs' },
+{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs' },
+{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs' }
+]);
+const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
+const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
+const conv = (p) => (p * rt[cur]).toFixed(2);
+const addProd = (e) => {
+e.preventDefault();
+if (!title || !price) return;
+setProds([{
+id: Date.now(),
+name: title,
+price: parseFloat(price),
+cat: cat || 'General',
+moq: moq || '1 Pc'
+}, ...prods]);
+setTitle(''); setPrice(''); setCat(''); setMoq('');
+setShowForm(false);
+};
+const filteredProds = prods.filter(item => {
+const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+const matchesCat = selectedCategory === 'All' || item.cat === selectedCategory;
+return matchesSearch && matchesCat;
+});
+return (
+<div style={{ minHeight: '100vh', background: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif', paddingBottom: '30px' }}>
+<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b' }}>
+<div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+<span style={{ background: '#f59e0b', padding: '6px 10px', borderRadius: '6px', fontWeight: 'bold', color: '#000' }}>🛍️</span>
+<div>
+<h1 style={{ fontSize: '18px', margin: 0, color: '#38bdf8' }}>MarketZone</h1>
+<span style={{ fontSize: '10px', color: '#94a3b8' }}>B2B & B2C MARKETPLACE</span>
+</div>
+</div>
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+<select value={cur} onChange={(e) => setCur(e.target.value)} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155' }}>
+<option value="USD">USD ($)</option>
+<option value="ZAR">ZAR (R)</option>
+<option value="INR">INR (₹)</option>
+<option value="EUR">EUR (€)</option>
+</select>
+<button style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7' }}>
+Cart ({cart.length})
+</button>
+</div>
+</header>
+<div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+<h2 style={{ fontSize: '18px', margin: 0 }}>Live Marketplace</h2>
+<button onClick={() => setShowForm(!showForm)} style={{ color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', background: '#10b981' }}>
+{showForm ? 'Close' : '+ Add Product'}
+</button>
+</div>
+<div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+<input type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ flex: 2, padding: '10px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }} />
+<select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}>
+<option value="All">All Categories</option>
+<option value="Electronics">Electronics</option>
+<option value="Fashion">Fashion</option>
+<option value="General">General</option>
+</select>
+</div>
+</div>
+{showForm && (
+<form onSubmit={addProd} style={{ maxWidth: '800px', margin: '0 auto 20px auto', background: '#1e293b', padding: '15px', borderRadius: '8px', border: '1px solid #334155' }}>
+<h3 style={{ marginTop: 0, color: '#38bdf8', fontSize: '16px' }}>Vendor Add Product</h3>
+<div style={{ marginBottom: '10px' }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Title</label>
+<input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Product name" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+<div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+<div style={{ flex: 1 }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Price (USD)</label>
+<input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="99.00" required style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+<div style={{ flex: 1 }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Category</label>
+<input type="text" value={cat} onChange={(e) => setCat(e.target.value)} placeholder="Electronics" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+</div>
+<div style={{ marginBottom: '12px' }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>MOQ</label>
+<input type="text" value={moq} onChange={(e) => setMoq(e.target.value)} placeholder="10 Pcs" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
+<button type="submit" style={{ width: '100%', background: '#f59e0b', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+Publish
+</button>
+</form>
+)}
+<div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gap: '12px' }}>
+{filteredProds.length > 0 ? (
+filteredProds.map((item) => (
+<div key={item.id} style={{ background: '#1e293b', border: '1px solid #334155', padding: '12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+<div>
+<span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
+<h3 style={{ fontSize: '15px', margin: '6px 0 4px 0', color: '#fff' }}>{item.name}</h3>
+<p style={{ fontSize: '12px', color: '#0da3b8', margin: 0 }}>MOQ: {item.moq}</p>
+<p style={{ fontSize: '16px', fontWeight: 'bold', color: '#38bdf8', margin: '6px 0 0 0' }}>
+{sym[cur]} {conv(item.price)}
+</p>
+</div>
+<button onClick={() => setCart([...cart, item])} style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', height: 'fit-content' }}>
+Buy
+</button>
+</div>
+))
+) : (
+<p style={{ textAlign: 'center', color: '#64748b' }}>No products found.</p>
+)}
+</div>
+<footer style={{ textAlign: 'center', marginTop: '30px', fontSize: '11px', color: '#64748b' }}>
+© 2026 MarketZone B2B & B2C Engine.
+</footer>
+</div>
+);
 }
