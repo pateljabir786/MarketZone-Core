@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function Home() {
 const [cur, setCur] = useState('USD');
 const [cart, setCart] = useState([]);
+const [orders, setOrders] = useState([]);
 const [activeTab, setActiveTab] = useState('buyer'); // 'buyer' or 'vendor'
 const [showCartModal, setShowCartModal] = useState(false);
 const [searchQuery, setSearchQuery] = useState('');
@@ -36,6 +37,20 @@ store: storeName
 setTitle(''); setPrice(''); setCat(''); setMoq(''); setGstNo(''); setStoreName('');
 alert('Storefront updated & product published successfully!');
 setActiveTab('buyer');
+};
+const placeOrder = () => {
+if (cart.length === 0) return;
+const newOrder = {
+id: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
+items: [...cart],
+total: cartTotal,
+status: 'Processing',
+date: new Date().toLocaleDateString()
+};
+setOrders([newOrder, ...orders]);
+setCart([]);
+setShowCartModal(false);
+alert('Order placed successfully! You can track it in Order History.');
 };
 const filteredProds = prods.filter(item => {
 const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -86,7 +101,7 @@ return (
 <option value="General">General</option>
 </select>
 </div>
-<div style={{ display: 'grid', gap: '12px' }}>
+<div style={{ display: 'grid', gap: '12px', marginBottom: '30px' }}>
 {filteredProds.length > 0 ? (
 filteredProds.map((item) => (
 <div key={item.id} style={{ background: '#1e293b', border: '1px solid #334155', padding: '12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -111,12 +126,37 @@ Add to Cart
 <p style={{ textAlign: 'center', color: '#64748b' }}>No products found.</p>
 )}
 </div>
+
+<div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', border: '1px solid #334155' }}>
+<h3 style={{ fontSize: '16px', color: '#38bdf8', marginTop: 0, marginBottom: '10px' }}>📦 My Order History & Tracking</h3>
+{orders.length === 0 ? (
+<p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>No orders placed yet.</p>
+) : (
+<div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+{orders.map((ord, idx) => (
+<div key={idx} style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #334155' }}>
+<div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
+<span style={{ fontWeight: 'bold', color: '#38bdf8' }}>{ord.id}</span>
+<span style={{ background: '#10b981', color: '#000', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>{ord.status}</span>
+</div>
+<div style={{ fontSize: '12px', color: '#cbd5e1', marginBottom: '6px' }}>
+Items: {ord.items.map(i => i.name).join(', ')}
+</div>
+<div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8' }}>
+<span>Date: {ord.date}</span>
+<span style={{ fontWeight: 'bold', color: '#f59e0b' }}>Total: {sym[cur]} {conv(ord.total)}</span>
+</div>
+</div>
+))}
+</div>
+)}
+</div>
 </div>
 )}
 
 {activeTab === 'vendor' && (
 <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-<form onSubmit={addProd} style={{ background: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
+<form onSubmit={addProd} style={{ background: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155', marginBottom: '20px' }}>
 <h3 style={{ marginTop: 0, color: '#10b981', fontSize: '18px', marginBottom: '15px' }}>📦 Vendor Storefront & Product Upload</h3>
 <div style={{ marginBottom: '12px' }}>
 <label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Store Name (Brand/Shop Name)</label>
@@ -148,6 +188,30 @@ Add to Cart
 Publish to Marketplace
 </button>
 </form>
+
+<div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', border: '1px solid #334155' }}>
+<h3 style={{ fontSize: '16px', color: '#10b981', marginTop: 0, marginBottom: '10px' }}>📦 Vendor Received Orders</h3>
+{orders.length === 0 ? (
+<p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>No orders received yet from buyers.</p>
+) : (
+<div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+{orders.map((ord, idx) => (
+<div key={idx} style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #334155' }}>
+<div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
+<span style={{ fontWeight: 'bold', color: '#38bdf8' }}>{ord.id}</span>
+<span style={{ background: '#f59e0b', color: '#000', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>Status: {ord.status}</span>
+</div>
+<div style={{ fontSize: '12px', color: '#cbd5e1', marginBottom: '6px' }}>
+Ordered Items: {ord.items.map(i => i.name).join(', ')}
+</div>
+<div style={{ fontSize: '12px', color: '#94a3b8' }}>
+Amount: {sym[cur]} {conv(ord.total)}
+</div>
+</div>
+))}
+</div>
+)}
+</div>
 </div>
 )}
 
@@ -179,7 +243,7 @@ Publish to Marketplace
 <span>Total:</span>
 <span style={{ color: '#38bdf8', fontSize: '16px' }}>{sym[cur]} {conv(cartTotal)}</span>
 </div>
-<button onClick={() => { alert('Order placed successfully!'); setCart([]); setShowCartModal(false); }} style={{ width: '100%', background: '#10b981', color: '#fff', border: 'none', padding: '12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+<button onClick={placeOrder} style={{ width: '100%', background: '#10b981', color: '#fff', border: 'none', padding: '12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
 Proceed to Checkout
 </button>
 </div>
