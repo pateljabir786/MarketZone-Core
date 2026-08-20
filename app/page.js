@@ -4,6 +4,7 @@ export default function Home() {
 const [cur, setCur] = useState('USD');
 const [cart, setCart] = useState([]);
 const [showForm, setShowForm] = useState(false);
+const [showCartModal, setShowCartModal] = useState(false);
 const [searchQuery, setSearchQuery] = useState('');
 const [selectedCategory, setSelectedCategory] = useState('All');
 const [title, setTitle] = useState('');
@@ -36,6 +37,7 @@ const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()
 const matchesCat = selectedCategory === 'All' || item.cat === selectedCategory;
 return matchesSearch && matchesCat;
 });
+const cartTotal = cart.reduce((acc, item) => acc + item.price, 0);
 return (
 <div style={{ minHeight: '100vh', background: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif', paddingBottom: '30px' }}>
 <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b' }}>
@@ -53,7 +55,7 @@ return (
 <option value="INR">INR (₹)</option>
 <option value="EUR">EUR (€)</option>
 </select>
-<button style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7' }}>
+<button onClick={() => setShowCartModal(true)} style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7', cursor: 'pointer' }}>
 Cart ({cart.length})
 </button>
 </div>
@@ -100,6 +102,42 @@ Cart ({cart.length})
 Publish
 </button>
 </form>
+)}
+{showCartModal && (
+<div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000, padding: '15px' }}>
+<div style={{ background: '#1e293b', width: '100%', maxWidth: '450px', borderRadius: '10px', padding: '20px', border: '1px solid #334155' }}>
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+<h3 style={{ margin: 0, fontSize: '18px', color: '#38bdf8' }}>Your Shopping Cart</h3>
+<button onClick={() => setShowCartModal(false)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '18px', cursor: 'pointer' }}>✕</button>
+</div>
+{cart.length === 0 ? (
+<p style={{ color: '#64748b', textAlign: 'center', margin: '30px 0' }}>Your cart is empty.</p>
+) : (
+<div>
+<div style={{ maxHeight: '250px', overflowY: 'auto', marginBottom: '15px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+{cart.map((item, idx) => (
+<div key={idx} style={{ display: 'flex', justifyContent: 'space-between', background: '#0f172a', padding: '10px', borderRadius: '6px' }}>
+<div>
+<span style={{ fontSize: '13px', fontWeight: 'bold', color: '#fff' }}>{item.name}</span>
+<div style={{ fontSize: '11px', color: '#94a3b8' }}>MOQ: {item.moq}</div>
+</div>
+<div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '13px' }}>
+{sym[cur]} {conv(item.price)}
+</div>
+</div>
+))}
+</div>
+<div style={{ borderTop: '1px solid #334155', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', marginBottom: '15px', fontWeight: 'bold' }}>
+<span>Total:</span>
+<span style={{ color: '#38bdf8', fontSize: '16px' }}>{sym[cur]} {conv(cartTotal)}</span>
+</div>
+<button onClick={() => { alert('Order placed successfully!'); setCart([]); setShowCartModal(false); }} style={{ width: '100%', background: '#10b981', color: '#fff', border: 'none', padding: '12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+Proceed to Checkout
+</button>
+</div>
+)}
+</div>
+</div>
 )}
 <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px', display: 'grid', gap: '12px' }}>
 {filteredProds.length > 0 ? (
