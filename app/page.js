@@ -11,26 +11,28 @@ const [title, setTitle] = useState('');
 const [price, setPrice] = useState('');
 const [cat, setCat] = useState('');
 const [moq, setMoq] = useState('');
+const [gstNo, setGstNo] = useState('');
 const [prods, setProds] = useState([
-{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs' },
-{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs' },
-{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs' }
+{ id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs', gst: 'GST-DEMO123' },
+{ id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs', gst: 'GST-DEMO123' },
+{ id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs', gst: 'GST-DEMO456' }
 ]);
 const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
 const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
 const conv = (p) => (p * rt[cur]).toFixed(2);
 const addProd = (e) => {
 e.preventDefault();
-if (!title || !price) return;
+if (!title || !price || !gstNo) return;
 setProds([{
 id: Date.now(),
 name: title,
 price: parseFloat(price),
 cat: cat || 'General',
-moq: moq || '1 Pc'
+moq: moq || '1 Pc',
+gst: gstNo
 }, ...prods]);
-setTitle(''); setPrice(''); setCat(''); setMoq('');
-alert('Product published successfully to marketplace!');
+setTitle(''); setPrice(''); setCat(''); setMoq(''); setGstNo('');
+alert('Product published with verified Tax/GST details!');
 setActiveTab('buyer');
 };
 const filteredProds = prods.filter(item => {
@@ -87,7 +89,10 @@ return (
 filteredProds.map((item) => (
 <div key={item.id} style={{ background: '#1e293b', border: '1px solid #334155', padding: '12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 <div>
+<div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
 <span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
+<span style={{ fontSize: '10px', background: '#334155', padding: '2px 6px', borderRadius: '4px', color: '#cbd5e1' }}>GST: {item.gst}</span>
+</div>
 <h3 style={{ fontSize: '15px', margin: '6px 0 4px 0', color: '#fff' }}>{item.name}</h3>
 <p style={{ fontSize: '12px', color: '#0da3b8', margin: 0 }}>MOQ: {item.moq}</p>
 <p style={{ fontSize: '16px', fontWeight: 'bold', color: '#38bdf8', margin: '6px 0 0 0' }}>
@@ -109,7 +114,11 @@ Add to Cart
 {activeTab === 'vendor' && (
 <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
 <form onSubmit={addProd} style={{ background: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
-<h3 style={{ marginTop: 0, color: '#10b981', fontSize: '18px', marginBottom: '15px' }}>📦 Vendor Product Upload</h3>
+<h3 style={{ marginTop: 0, color: '#10b981', fontSize: '18px', marginBottom: '15px' }}>📦 Vendor Verification & Upload</h3>
+<div style={{ marginBottom: '12px' }}>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>GST / Tax Registration Number</label>
+<input type="text" value={gstNo} onChange={(e) => setGstNo(e.target.value)} placeholder="e.g. 24ABCDE1234F1Z5" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
+</div>
 <div style={{ marginBottom: '12px' }}>
 <label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Product Title</label>
 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Smart TV" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
@@ -151,7 +160,7 @@ Publish to Marketplace
 <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', background: '#0f172a', padding: '10px', borderRadius: '6px' }}>
 <div>
 <span style={{ fontSize: '13px', fontWeight: 'bold', color: '#fff' }}>{item.name}</span>
-<div style={{ fontSize: '11px', color: '#94a3b8' }}>MOQ: {item.moq}</div>
+<div style={{ fontSize: '11px', color: '#94a3b8' }}>MOQ: {item.moq} | GST: {item.gst}</div>
 </div>
 <div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '13px' }}>
 {sym[cur]} {conv(item.price)}
