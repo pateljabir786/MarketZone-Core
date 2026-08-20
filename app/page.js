@@ -2,6 +2,7 @@
 import { useState } from 'react';
 export default function Home() {
 const [cur, setCur] = useState('USD');
+const [region, setRegion] = useState('Global (USD)');
 const [cart, setCart] = useState([]);
 const [orders, setOrders] = useState([]);
 const [activeTab, setActiveTab] = useState('buyer'); // 'buyer' or 'vendor'
@@ -22,6 +23,14 @@ const [prods, setProds] = useState([
 const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
 const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
 const conv = (p) => (p * rt[cur]).toFixed(2);
+const handleRegionChange = (e) => {
+const val = e.target.value;
+setRegion(val);
+if (val === 'South Africa') setCur('ZAR');
+else if (val === 'India') setCur('INR');
+else if (val === 'Europe') setCur('EUR');
+else setCur('USD');
+};
 const addProd = (e) => {
 e.preventDefault();
 if (!title || !price || !gstNo || !storeName) return;
@@ -60,22 +69,28 @@ return matchesSearch && matchesCat;
 const cartTotal = cart.reduce((acc, item) => acc + item.price, 0);
 return (
 <div style={{ minHeight: '100vh', background: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif', paddingBottom: '30px' }}>
-<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b' }}>
+<header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b', flexWrap: 'wrap', gap: '10px' }}>
 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
 <span style={{ background: '#f59e0b', padding: '6px 10px', borderRadius: '6px', fontWeight: 'bold', color: '#000' }}>🛍️</span>
 <div>
 <h1 style={{ fontSize: '18px', margin: 0, color: '#38bdf8' }}>MarketZone</h1>
-<span style={{ fontSize: '10px', color: '#94a3b8' }}>B2B & B2C MARKETPLACE</span>
+<span style={{ fontSize: '10px', color: '#94a3b8' }}>B2B & B2C GLOBAL MARKETPLACE</span>
 </div>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-<select value={cur} onChange={(e) => setCur(e.target.value)} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155' }}>
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+<select value={region} onChange={handleRegionChange} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155', fontSize: '12px' }}>
+<option value="Global (USD)">🌍 Global (USD)</option>
+<option value="South Africa">🇿🇦 South Africa (ZAR)</option>
+<option value="India">🇮🇳 India (INR)</option>
+<option value="Europe">🇪🇺 Europe (EUR)</option>
+</select>
+<select value={cur} onChange={(e) => setCur(e.target.value)} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155', fontSize: '12px' }}>
 <option value="USD">USD ($)</option>
 <option value="ZAR">ZAR (R)</option>
 <option value="INR">INR (₹)</option>
 <option value="EUR">EUR (€)</option>
 </select>
-<button onClick={() => setShowCartModal(true)} style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7', cursor: 'pointer' }}>
+<button onClick={() => setShowCartModal(true)} style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7', cursor: 'pointer', fontSize: '12px' }}>
 🛒 Cart ({cart.length})
 </button>
 </div>
@@ -106,7 +121,7 @@ return (
 filteredProds.map((item) => (
 <div key={item.id} style={{ background: '#1e293b', border: '1px solid #334155', padding: '12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 <div>
-<div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
+<div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap' }}>
 <span style={{ fontSize: '10px', background: '#0284c7', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>{item.cat}</span>
 <span style={{ fontSize: '10px', background: '#059669', padding: '2px 6px', borderRadius: '4px', color: '#fff' }}>Store: {item.store}</span>
 <span style={{ fontSize: '10px', background: '#334155', padding: '2px 6px', borderRadius: '4px', color: '#cbd5e1' }}>GST: {item.gst}</span>
@@ -241,7 +256,7 @@ Amount: {sym[cur]} {conv(ord.total)}
 </div>
 <div style={{ borderTop: '1px solid #334155', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', marginBottom: '15px', fontWeight: 'bold' }}>
 <span>Total:</span>
-<span style={{ color: '#38bdf8', fontSize: '16px' }}>{sym[cur]} {conv(cartTotal)}</span>
+<span style={{ color: '#38bdf8', fontSize: '16px'}>{sym[cur]} {conv(cartTotal)}</span>
 </div>
 <button onClick={placeOrder} style={{ width: '100%', background: '#10b981', color: '#fff', border: 'none', padding: '12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
 Proceed to Checkout
