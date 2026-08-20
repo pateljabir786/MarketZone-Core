@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 export default function Home() {
-const [cur, setCur] = useState('USD');
 const [region, setRegion] = useState('Global (USD)');
+const [cur, setCur] = useState('USD');
 const [cart, setCart] = useState([]);
 const [orders, setOrders] = useState([]);
 const [activeTab, setActiveTab] = useState('buyer'); // 'buyer' or 'vendor'
@@ -15,23 +15,26 @@ const [title, setTitle] = useState('');
 const [price, setPrice] = useState('');
 const [cat, setCat] = useState('');
 const [moq, setMoq] = useState('');
-const [gstNo, setGstNo] = useState('');
 const [prods, setProds] = useState([
 { id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', moq: '10 Pcs', store: 'Global Electronics Hub', desc: 'High-quality wireless bluetooth earbuds with active noise cancellation and long battery life.' },
 { id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', moq: '5 Pcs', store: 'Global Electronics Hub', desc: 'Advanced smart watch with fitness tracking, heart rate monitor, and custom dials.' },
 { id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', moq: '20 Pcs', store: 'TrendStyle Store', desc: 'Durable genuine leather backpack suitable for daily office commute and travel.' }
 ]);
-const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€' };
-const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92 };
+const sym = { USD: '$', ZAR: 'R', INR: '₹', EUR: '€', AED: 'AED', SAR: 'SAR' };
+const rt = { USD: 1, ZAR: 18.5, INR: 83, EUR: 0.92, AED: 3.67, SAR: 3.75 };
 const conv = (p) => (p * rt[cur]).toFixed(2);
+
 const handleRegionChange = (e) => {
 const val = e.target.value;
 setRegion(val);
 if (val === 'South Africa') setCur('ZAR');
 else if (val === 'India') setCur('INR');
 else if (val === 'Europe') setCur('EUR');
+else if (val === 'UAE (Gulf)') setCur('AED');
+else if (val === 'Saudi Arabia (Gulf)') setCur('SAR');
 else setCur('USD');
 };
+
 const addProd = (e) => {
 e.preventDefault();
 if (!title || !price || !storeName) return;
@@ -44,10 +47,11 @@ moq: moq || '1 Pc',
 store: storeName,
 desc: 'Newly listed product on MarketZone marketplace.'
 }, ...prods]);
-setTitle(''); setPrice(''); setCat(''); setMoq(''); setGstNo(''); setStoreName('');
+setTitle(''); setPrice(''); setCat(''); setMoq(''); setStoreName('');
 alert('Storefront updated & product published successfully!');
 setActiveTab('buyer');
 };
+
 const placeOrder = () => {
 if (cart.length === 0) return;
 const newOrder = {
@@ -62,12 +66,15 @@ setCart([]);
 setShowCartModal(false);
 alert('Order placed successfully! You can track it in Order History.');
 };
+
 const filteredProds = prods.filter(item => {
 const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
 const matchesCat = selectedCategory === 'All' || item.cat === selectedCategory;
 return matchesSearch && matchesCat;
 });
+
 const cartTotal = cart.reduce((acc, item) => acc + item.price, 0);
+
 return (
 <div style={{ minHeight: '100vh', background: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif', paddingBottom: '30px' }}>
 <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', borderBottom: '1px solid #334155', background: '#1e293b', flexWrap: 'wrap', gap: '10px' }}>
@@ -79,17 +86,13 @@ return (
 </div>
 </div>
 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-<select value={region} onChange={handleRegionChange} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155', fontSize: '12px' }}>
-<option value="Global (USD)">🌍 Global (USD)</option>
-<option value="South Africa">🇿🇦 South Africa (ZAR)</option>
-<option value="India">🇮🇳 India (INR)</option>
-<option value="Europe">🇪🇺 Europe (EUR)</option>
-</select>
-<select value={cur} onChange={(e) => setCur(e.target.value)} style={{ padding: '6px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155', fontSize: '12px' }}>
-<option value="USD">USD ($)</option>
-<option value="ZAR">ZAR (R)</option>
-<option value="INR">INR (₹)</option>
-<option value="EUR">EUR (€)</option>
+<select value={region} onChange={handleRegionChange} style={{ padding: '6px 10px', borderRadius: '4px', color: '#fff', border: 'none', background: '#334155', fontSize: '12px' }}>
+<option value="Global (USD)">🌍 Global (USD - $)</option>
+<option value="UAE (Gulf)">🇦🇪 UAE (AED)</option>
+<option value="Saudi Arabia (Gulf)">🇸🇦 Saudi Arabia (SAR)</option>
+<option value="South Africa">🇿🇦 South Africa (ZAR - R)</option>
+<option value="India">🇮🇳 India (INR - ₹)</option>
+<option value="Europe">🇪🇺 Europe (EUR - €)</option>
 </select>
 <button onClick={() => setShowCartModal(true)} style={{ color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '6px', fontWeight: 'bold', background: '#0284c7', cursor: 'pointer', fontSize: '12px' }}>
 🛒 Cart ({cart.length})
@@ -184,7 +187,7 @@ Items: {ord.items.map(i => i.name).join(', ')}
 </div>
 <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
 <div style={{ flex: 1 }}>
-<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Price (USD)</label>
+<label style={{ fontSize: '12px', display: 'block', marginBottom: '4px' }}>Price (USD base)</label>
 <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="99.00" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#fff', boxSizing: 'border-box' }} />
 </div>
 <div style={{ flex: 1 }}>
