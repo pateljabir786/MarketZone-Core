@@ -9,7 +9,13 @@ export default function MarketZoneApp() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [cart, setCart] = useState([]);
 
-  const [prods] = useState([
+  // Vendor KYC state
+  const [isVendorRegistered, setIsVendorRegistered] = useState(true);
+  const [storeName, setStoreName] = useState('Global Electronics Hub');
+  const [ownerName, setOwnerName] = useState('Jabir Patel');
+  const [gstNumber, setGstNumber] = useState('GSTIN12345ABC');
+
+  const [prods, setProds] = useState([
     { id: 1, name: 'Wireless Earbuds', price: 49.99, cat: 'Electronics', store: 'Global Electronics Hub', moq: '10 Pcs' },
     { id: 2, name: 'Smart Watch X', price: 89.99, cat: 'Electronics', store: 'Global Electronics Hub', moq: '5 Pcs' },
     { id: 3, name: 'Leather Backpack', price: 35.50, cat: 'Fashion', store: 'TrendStyle Store', moq: '20 Pcs' }
@@ -71,7 +77,6 @@ export default function MarketZoneApp() {
       {/* Buyer Marketplace View */}
       {activeTab === 'buyer' && (
         <div>
-          {/* Search & Category Filter */}
           <div style={{ display: 'flex', gap: '8px', marginBottom: '15px' }}>
             <input 
               type="text" 
@@ -87,7 +92,6 @@ export default function MarketZoneApp() {
             </select>
           </div>
 
-          {/* Product Cards List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {filteredProds.map(p => (
               <div key={p.id} style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', padding: '15px', borderRadius: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -110,9 +114,17 @@ export default function MarketZoneApp() {
         </div>
       )}
 
+      {/* Vendor Dashboard View */}
       {activeTab === 'vendor' && (
-        <div style={{ textAlign: 'center', padding: '40px', backgroundColor: '#0f172a', borderRadius: '12px', border: '1px solid #1e293b', color: '#94a3b8', fontSize: '13px' }}>
-          Vendor Store & KYC Management Dashboard Active.
+        <div style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', padding: '20px', borderRadius: '12px' }}>
+          <h3 style={{ margin: '0 0 10px 0', color: '#34d399', fontSize: '16px' }}>📦 Vendor KYC & Store Management</h3>
+          <p style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '15px' }}>Store Status: <strong style={{ color: '#38bdf8' }}>Verified Legal Seller</strong></p>
+          <div style={{ backgroundColor: '#020617', padding: '12px', borderRadius: '8px', border: '1px solid #1e293b', fontSize: '12px', marginBottom: '15px' }}>
+            <div>Store Name: <strong>{storeName}</strong></div>
+            <div>Owner: <strong>{ownerName}</strong></div>
+            <div>GST / Tax ID: <strong>{gstNumber}</strong></div>
+          </div>
+          <div style={{ fontSize: '12px', color: '#38bdf8', fontWeight: 'bold' }}>Products Listed: {prods.length} Active Items</div>
         </div>
       )}
     </div>
